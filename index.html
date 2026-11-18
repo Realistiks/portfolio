@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кирилл Колесников - портфолио</title>
+<meta name="description" content="Портфолио Кирилла Колесникова: Python-автоматизация, компьютерное зрение, игры на Godot и сетевые инструменты.">
+<meta name="author" content="Кирилл Колесников">
+<meta name="theme-color" content="#0d1117">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Кирилл Колесников - портфолио">
+<meta property="og:description" content="Python-разработчик: автоматизация, компьютерное зрение, сети и игры на Godot.">
+<meta property="og:url" content="https://realistiks.github.io/portfolio/">
+<meta property="og:image" content="https://realistiks.github.io/portfolio/img/zombie/desktop_showcase.png">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<link rel="canonical" href="https://realistiks.github.io/portfolio/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #3fb950;
+    --blue: #58a6ff;
+    --font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+    --font-head: "Unbounded", "Manrope", system-ui, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  header {
+    padding: 80px 0 52px;
+    border-bottom: 1px solid var(--border);
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 0%, rgba(63,185,80,.10), transparent),
+      radial-gradient(ellipse 50% 40% at 85% 10%, rgba(88,166,255,.08), transparent),
+      linear-gradient(180deg, #161b22 0%, var(--bg) 100%);
+  }
+  h1 {
+    font-family: var(--font-head);
+    font-size: 44px; font-weight: 700; letter-spacing: -1px; line-height: 1.15;
+  }
+  h1 .dot { color: var(--accent); }
+  .subtitle { color: var(--muted); font-size: 19px; margin-top: 12px; font-weight: 500; }
+  .tags { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    background: rgba(63,185,80,.12); color: var(--accent);
+    border: 1px solid rgba(63,185,80,.35);
+    padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;
+  }
+  .tag.b { background: rgba(88,166,255,.1); color: var(--blue); border-color: rgba(88,166,255,.35); }
+
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(13,17,23,.9); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap { display: flex; gap: 30px; padding: 15px 24px; overflow-x: auto; }
+  nav a {
+    color: var(--muted); text-decoration: none; font-size: 14px;
+    white-space: nowrap; font-weight: 600; transition: color .25s;
+  }
+  nav a:hover { color: var(--accent); }
+
+  section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  section[id] { scroll-margin-top: 64px; }
+  h2 {
+    font-family: var(--font-head);
+    font-size: 30px; margin-bottom: 8px; font-weight: 600; letter-spacing: -0.5px;
+  }
+  h2 .num { color: var(--accent); font-weight: 400; margin-right: 12px; }
+  h3 { font-family: var(--font-head); font-weight: 500; }
+  .lead { color: var(--muted); font-size: 17px; margin-bottom: 28px; max-width: 840px; }
+
+  .metrics { display: flex; flex-wrap: wrap; gap: 14px; margin: 26px 0; }
+  .metric {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 22px; min-width: 155px;
+    transition: border-color .3s, transform .3s;
+  }
+  .metric:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .metric .v { font-family: var(--font-head); font-size: 24px; font-weight: 600; color: var(--accent); }
+  .metric .l { font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+  .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-top: 30px; }
+  .gallery.one { grid-template-columns: 1fr; }
+  .gallery.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gallery .parser-small { max-width: 600px; }
+  .gallery .site-small { max-width: 600px; }
+  .gallery.split {
+    grid-template-columns: minmax(230px, 1fr) 2fr;
+    align-items: stretch;
+  }
+  .gallery.split figure { grid-column: 1; }
+  .gallery.split figure.right {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    display: flex;
+    flex-direction: column;
+  }
+  .gallery.split figure.right img {
+    flex: 1;
+    min-height: 0;
+    object-fit: cover;
+    object-position: center top;
+  }
+  figure {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden; margin: 0;
+    transition: border-color .3s, transform .3s, box-shadow .3s;
+  }
+  figure:hover {
+    border-color: rgba(63,185,80,.5); transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,.45);
+  }
+  figure img { width: 100%; height: auto; display: block; cursor: zoom-in; }
+  figcaption { padding: 11px 15px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); }
+  .placeholder {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 220px; color: var(--muted); font-size: 14px;
+    background: repeating-linear-gradient(45deg, #161b22, #161b22 12px, #1a1f28 12px, #1a1f28 24px);
+    text-align: center; padding: 20px;
+  }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+  @media (max-width: 760px) {
+    .cols { grid-template-columns: 1fr; }
+    .gallery.split { grid-template-columns: 1fr; }
+    .gallery.split figure, .gallery.split figure.right { grid-column: 1; grid-row: auto; }
+    .gallery.two { grid-template-columns: 1fr; }
+    h1 { font-size: 30px; }
+    h2 { font-size: 23px; }
+    section { padding: 44px 0; }
+  }
+
+  ul.feat { list-style: none; }
+  ul.feat li {
+    padding: 9px 0 9px 26px; position: relative; color: var(--text);
+    font-size: 15px; border-bottom: 1px dashed var(--border);
+  }
+  ul.feat li:last-child { border-bottom: none; }
+  ul.feat li::before { content: "▸"; position: absolute; left: 4px; color: var(--accent); }
+  .stack { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
+  .chip {
+    font-size: 12.5px; padding: 4px 11px; border-radius: 7px;
+    background: #21262d; border: 1px solid var(--border); color: var(--muted);
+    font-weight: 600; transition: color .25s, border-color .25s;
+  }
+  .chip:hover { color: var(--text); border-color: var(--muted); }
+  a.chip { display: inline-flex; align-items: center; text-decoration: none; }
+  a.chip:hover { color: var(--accent); border-color: var(--accent); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  .links a {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 10px 17px; border-radius: 9px;
+    border: 1px solid rgba(63,185,80,.42);
+    background: rgba(63,185,80,.1); color: var(--accent);
+    font-size: 13px; font-weight: 700; text-decoration: none;
+    transition: background .25s, border-color .25s, transform .25s;
+  }
+  .links a:hover {
+    background: rgba(63,185,80,.18); border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .links a.secondary {
+    border-color: rgba(88,166,255,.38);
+    background: rgba(88,166,255,.1); color: var(--blue);
+  }
+  .links a.secondary:hover { background: rgba(88,166,255,.18); border-color: var(--blue); }
+
+  .result {
+    margin-top: 26px; padding: 18px 22px; border-radius: 10px;
+    background: rgba(63,185,80,.08); border-left: 3px solid var(--accent);
+    font-size: 15px;
+  }
+  .result b { color: var(--accent); }
+  .result.blue { background: rgba(88,166,255,.08); border-left-color: var(--blue); }
+  .result.blue b { color: var(--blue); }
+
+  footer { padding: 44px 0 68px; color: var(--muted); font-size: 14px; }
+
+  .lightbox {
+    position: fixed; inset: 0; background: rgba(0,0,0,.93);
+    display: none; align-items: center; justify-content: center;
+    z-index: 100; padding: 24px; cursor: zoom-out;
+    opacity: 0; transition: opacity .3s;
+  }
+  .lightbox.open { display: flex; opacity: 1; }
+  .lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; }
+
+  /* ===== Анимации при скролле ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1);
+    will-change: opacity, transform;
+  }
+  .reveal.from-left  { transform: translateX(-48px); }
+  .reveal.from-right { transform: translateX(48px); }
+  .reveal.zoom       { transform: scale(.92); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  .reveal.d1 { transition-delay: .1s; }
+  .reveal.d2 { transition-delay: .2s; }
+  .reveal.d3 { transition-delay: .3s; }
+  .reveal.d4 { transition-delay: .4s; }
+  .reveal.d5 { transition-delay: .5s; }
+  .reveal.d6 { transition-delay: .6s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* Печать и экспорт в PDF: визуал и все элементы сохраняются */
+  @media print {
+    @page { size: A4; margin: 0; }
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .lightbox { display: none !important; }
+    nav { display: none; }
+    html, body { background: #0d1117 !important; }
+    section { padding: 30px 0; break-before: page; page-break-before: always; }
+    header { break-after: page; page-break-after: always; }
+    figure, .metric, .result, .feat li, .stack, .chip, .cols, .metrics { break-inside: avoid; }
+    img { break-inside: avoid; max-width: 100%; }
+    h1, h2, h3 { break-after: avoid; page-break-after: avoid; }
+    a { color: inherit; text-decoration: none; }
+    ::-webkit-scrollbar { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1 class="reveal">Кирилл Колесников<span class="dot">.</span></h1>
+    <div class="subtitle reveal d1">Python-разработчик: автоматизация, компьютерное зрение, сети и игры на Godot</div>
+    <div class="tags reveal d2">
+      <span class="tag">Python</span>
+      <span class="tag">Computer Vision</span>
+      <span class="tag">YOLOv8</span>
+      <span class="tag">OCR</span>
+      <span class="tag">Godot</span>
+      <span class="tag b">Автоматизация Windows</span>
+      <span class="tag b">Win32 API</span>
+      <span class="tag b">Парсинг</span>
+      <span class="tag b">Сети</span>
+      <span class="tag">Тесты</span>
+      <span class="tag">Git</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#about">Обо мне</a>
+    <a href="#auction">Автозакупка лотов</a>
+    <a href="#keyran">Порт макроса</a>
+    <a href="#funpay">Парсер FunPay</a>
+    <a href="#zombie">Zombie Waves</a>
+    <a href="#vpn">Proxy-скринер</a>
+    <a href="#skills">Навыки</a>
+    <a href="#contacts">Контакты</a>
+  </div>
+</nav>
+
+<section id="about">
+  <div class="wrap">
+    <h2 class="reveal">Обо мне</h2>
+    <p class="lead reveal d1">
+      Занимаюсь разработкой на Python около года в статусе самозанятого. Основное направление -
+      инструменты автоматизации на базе компьютерного зрения: боты, которые видят экран,
+      принимают решения и выполняют действия вместо человека. В работе - от разметки данных
+      и обучения моделей до интерфейса, тестов и документации. Отдельно развиваю game dev
+      на Godot и сетевые инструменты: от игрового цикла до проверки прокси и VPN-конфигов.
+    </p>
+    <div class="metrics">
+      <div class="metric reveal d1"><div class="v">1 год</div><div class="l">самозанятость, коммерческие проекты</div></div>
+      <div class="metric reveal d2"><div class="v">5</div><div class="l">проектов в портфолио</div></div>
+      <div class="metric reveal d3"><div class="v">8 600+</div><div class="l">строк кода в основном проекте</div></div>
+      <div class="metric reveal d4"><div class="v">19</div><div class="l">автотестов, все зелёные</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="auction">
+  <div class="wrap">
+    <h2 class="reveal"><span class="num">01</span>Автозакупка лотов на аукционе</h2>
+    <p class="lead reveal d1">
+      Настольный бот, который сам находит выгодные лоты на внутриигровом аукционе и выкупает их.
+      Смотрит на экран через компьютерное зрение: модель YOLO находит бейджи количества и цены,
+      собственный OCR читает числа, после чего бот принимает решение о покупке и кликает сам.
+      Написан как курсовая работа и доведён до рабочего инструмента.
+    </p>
+
+    <div class="metrics">
+      <div class="metric reveal d1"><div class="v">8 600</div><div class="l">строк кода</div></div>
+      <div class="metric reveal d2"><div class="v">19/19</div><div class="l">юнит-тестов проходят</div></div>
+      <div class="metric reveal d3"><div class="v">26/26</div><div class="l">эталонов OCR распознано</div></div>
+      <div class="metric reveal d4"><div class="v">0</div><div class="l">ложных покупок на 720 проверках</div></div>
+    </div>
+
+    <div class="cols">
+      <div class="reveal from-left">
+        <h3 style="font-size:17px; margin-bottom:10px;">Что умеет</h3>
+        <ul class="feat">
+          <li>Находит лоты дешевле заданного порога и покупает самый выгодный</li>
+          <li>Читает количество и цену с экрана: шаблоны цифр + EasyOCR с перекрёстной проверкой</li>
+          <li>Не покупает чужой лот: сверяет строку прямо перед кликом, кнопка нажимается только своей строки</li>
+          <li>Экстренная остановка по Esc и по горячей клавише, лимиты по цене и количеству</li>
+          <li>Журнал покупок, остаток товара, баланс до и после запуска</li>
+          <li>Калибровка областей экрана через интерфейс, работает с любой раскладкой таблицы</li>
+        </ul>
+        <div class="stack">
+          <span class="chip">Python</span><span class="chip">YOLOv8</span><span class="chip">EasyOCR</span>
+          <span class="chip">OpenCV</span><span class="chip">NumPy</span><span class="chip">Tkinter</span>
+          <span class="chip">mss</span><span class="chip">pyautogui</span><span class="chip">pytest</span><span class="chip">Git</span>
+        </div>
+      </div>
+      <div class="reveal from-right">
+        <h3 style="font-size:17px; margin-bottom:10px;">Сложности и решения</h3>
+        <ul class="feat">
+          <li>Цифры на иконках в разных цветах и масштабах - собрал библиотеку эталонов и алгоритм их пополнения</li>
+          <li>OCR часто ошибался на искажённых кропах - добавил двойное чтение и голосование, отказ при расхождении</li>
+          <li>Таблица пересортировывалась между анализом и кликом - сверка строки перед нажатием</li>
+          <li>Кнопка выкупа обрезалась у нижнего края - прокрутка с ограничением попыток</li>
+          <li>Модель промахивалась - разметил датасет, дообучил, довёл точность до рабочей</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="gallery one">
+      <figure class="reveal zoom">
+        <img src="img/auction/auc.png" alt="Планшет аукциона в игре" loading="lazy" width="1385" height="960">
+        <figcaption>Планшет EXBO с таблицей аукциона - рабочая среда бота</figcaption>
+      </figure>
+      <figure class="reveal zoom">
+        <img src="img/auction/auc_bot.png" alt="Таблица лотов аукциона" loading="lazy" width="2559" height="1485">
+        <figcaption>Таблица лотов аукциона - объект, который анализирует бот</figcaption>
+      </figure>
+    </div>
+
+    <div class="gallery split">
+      <figure class="reveal d1">
+        <img src="img/auction/yolo_detections.png" alt="Детекции YOLOv8" loading="lazy" width="2294" height="972">
+        <figcaption>Работа модели: слева исходный кадр, справа детекции YOLOv8 с уверенностью</figcaption>
+      </figure>
+      <figure class="reveal d2">
+        <img src="img/auction/ocr_samples.png" alt="Образцы OCR" loading="lazy" width="1801" height="1052">
+        <figcaption>Эталоны для OCR: количества на иконках и цена выкупа</figcaption>
+      </figure>
+      <figure class="reveal d3">
+        <img src="img/auction/raw_detections.jpg" alt="Детекции на реальном кадре" loading="lazy" width="703" height="629">
+        <figcaption>Детекции на реальном кадре: бейджи количества и цены найдены моделью</figcaption>
+      </figure>
+      <figure class="reveal right zoom">
+        <img src="img/auction/ocr_console.png" alt="Вывод OCR в консоли" loading="lazy" width="506" height="927">
+        <figcaption>Журнал OCR в реальном времени: распознанное число и уверенность чтения</figcaption>
+      </figure>
+    </div>
+
+    <div class="result reveal">
+      <b>Результат:</b> законченный продукт с интерфейсом, тестами и документацией.
+      Курсовая работа защищена, бот используется как рабочий инструмент.
+      Каждая строка кода покрыта автотестами или проверками на реальных кадрах.
+    </div>
+  </div>
+</section>
+
+<section id="keyran">
+  <div class="wrap">
+    <h2 class="reveal"><span class="num">02</span>Порт игрового макроса на Python</h2>
+    <p class="lead reveal d1">
+      Перенос коммерческого макроса формата Keyran (.amc) на чистый Python - без зависимостей
+      от самого Keyran. Каждая строка оригинала соответствует элементу списка в новой версии,
+      поэтому вся логика переходов сохраняется один в один. Ввод выполняется через Win32
+      SendInput со скан-кодами, экран читается через mss и numpy.
+    </p>
+
+    <div class="metrics">
+      <div class="metric reveal d1"><div class="v">948</div><div class="l">строк, порт один в один</div></div>
+      <div class="metric reveal d2"><div class="v">20 000 ₽</div><div class="l">в месяц - проект приносит доход</div></div>
+      <div class="metric reveal d3"><div class="v">3 ВМ</div><div class="l">параллельная работа на кластере</div></div>
+    </div>
+
+    <div class="cols">
+      <div class="reveal from-left">
+        <h3 style="font-size:17px; margin-bottom:10px;">Что умеет</h3>
+        <ul class="feat">
+          <li>Полный набор команд макроса: нажатия, задержки, движения мыши, переходы, циклы</li>
+          <li>Поиск цвета в области экрана с условиями: равен, диапазон, не равен</li>
+          <li>Горячие клавиши через системный хук - работают даже через удалённый доступ</li>
+          <li>Режим проверки логики без игры: прогон сухого запуска с ограничением шагов</li>
+          <li>Ручное управление камерой стрелками, когда бот не запущен</li>
+          <li>Работа на нескольких виртуальных машинах одновременно</li>
+        </ul>
+        <div class="stack">
+          <span class="chip">Python</span><span class="chip">Win32 API</span><span class="chip">ctypes</span>
+          <span class="chip">SendInput</span><span class="chip">mss</span><span class="chip">NumPy</span>
+          <span class="chip">Потоки</span><span class="chip">Системные хуки</span><span class="chip">Hyper-V</span>
+        </div>
+      </div>
+      <div class="reveal from-right">
+        <h3 style="font-size:17px; margin-bottom:10px;">Сложности и решения</h3>
+        <ul class="feat">
+          <li>Keyran работает с HID-кодами, Python получил скан-коды - проведена сводная таблица соответствий</li>
+          <li>События должны доходить до игры в фоне - ввод через SendInput, хуки на уровне системы</li>
+          <li>Логика переходов GoColor/GoWhile нетривиально воспроизведена по номерам строк оригинала</li>
+          <li>Без игры отлаживать нельзя - добавлен dry-run с журналированием каждого шага</li>
+          <li>Несколько игровых клиентов требуют изоляции - запуск на отдельных виртуальных машинах</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="gallery">
+      <figure class="reveal zoom">
+        <img src="img/keyran/keyran_work_bots.png" alt="Макрос на трёх виртуальных машинах" loading="lazy" width="2559" height="1407">
+        <figcaption>Три экземпляра игры на виртуальных машинах: макрос работает на каждом, управление кластером через Hyper-V</figcaption>
+      </figure>
+      <figure class="reveal d1">
+        <img src="img/keyran/keyranbot.png" alt="Панель управления макросом" loading="lazy" width="342" height="257">
+        <figcaption>Панель управления макросом: старт и стоп по F12, поворот камеры стрелками</figcaption>
+      </figure>
+    </div>
+
+    <div class="result reveal">
+      <b>Результат:</b> проект работает стабильно и приносит доход около 20 000 рублей в месяц.
+      Замена коммерческого Keyran открытым решением на Python с сохранением всей логики,
+      масштабируется на несколько параллельных сессий.
+    </div>
+  </div>
+</section>
+
+<section id="funpay">
+  <div class="wrap">
+    <h2 class="reveal"><span class="num">03</span>Парсер цен FunPay</h2>
+    <p class="lead reveal d1">
+      Инструмент для оценки рыночной цены: собирает предложения продавцов на FunPay,
+      отсеивает ненадёжных, считает среднюю по лучшим предложениям и показывает окупаемость
+      при заданном объёме. Используется для принятия решений о выставлении цен.
+    </p>
+
+    <div class="metrics">
+      <div class="metric reveal d1"><div class="v">API</div><div class="l">FunPayAPI + разбор HTML</div></div>
+      <div class="metric reveal d2"><div class="v">5 фильтров</div><div class="l">сервер, объём, отзывы, рейтинг, цена</div></div>
+      <div class="metric reveal d3"><div class="v">Окупаемость</div><div class="l">калькулятор прибыли в рублях</div></div>
+    </div>
+
+    <div class="cols">
+      <div class="reveal from-left">
+        <h3 style="font-size:17px; margin-bottom:10px;">Что умеет</h3>
+        <ul class="feat">
+          <li>Забирает все лоты подкатегории через официальный API</li>
+          <li>Вытаскивает из разметки рейтинг, число отзывов и объём продаж регулярными выражениями</li>
+          <li>Фильтрует: нужный сервер, объём от 15, отзывы от 15, рейтинг от 3, цена выше порога</li>
+          <li>Считает среднюю по 5 лучшим предложениям и переводит в цену за единицу</li>
+          <li>Считает окупаемость: сколько вы получите при продаже заданного количества</li>
+        </ul>
+        <div class="stack">
+          <span class="chip">Python</span><span class="chip">FunPayAPI</span>
+          <span class="chip">Регулярные выражения</span><span class="chip">Анализ данных</span>
+        </div>
+      </div>
+      <div class="reveal from-right">
+        <h3 style="font-size:17px; margin-bottom:10px;">Сложности и решения</h3>
+        <ul class="feat">
+          <li>Разметка продавцов нестабильна - шаблоны поиска с допуском на лишние атрибуты</li>
+          <li>Сырые цены в разных масштабах - пересчёт в цену за единицу с поправкой на комиссию</li>
+          <li>Мусорные предложения портят среднее - многоуровневая фильтрация перед расчётом</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="gallery one">
+      <figure class="reveal d1 parser-small">
+        <img src="img/funpay/funpay_parser.png" alt="Запуск парсера в консоли" loading="lazy" width="2447" height="289">
+        <figcaption>Парсер в работе: подключается к API FunPay и проходит по всем лотам подкатегории, отсеивает ненадёжные предложения по фильтрам (сервер, объём, отзывы, рейтинг), а затем выводит в консоль список цен продавцов, среднюю по лучшим предложениям и расчёт окупаемости при заданном объёме</figcaption>
+      </figure>
+      <figure class="reveal d2 site-small">
+        <img src="img/funpay/funpay_site.png" alt="Раздел лотов на FunPay" loading="lazy" width="1293" height="1453">
+        <figcaption>Раздел лотов на FunPay - источник данных для парсера</figcaption>
+      </figure>
+    </div>
+
+    <div class="result reveal">
+      <b>Результат:</b> быстрый способ получить объективную рыночную цену вместо ручного
+      просмотра десятков предложений. Решения о ценах принимаются на основе данных.
+    </div>
+  </div>
+</section>
+
+<section id="zombie">
+  <div class="wrap">
+    <h2 class="reveal"><span class="num">04</span>Zombie Waves - игра на Godot</h2>
+    <p class="lead reveal d1">
+      Top-down зомби-шутер, который я сделал на Godot 4 с нуля: кампания на 15 волн,
+      три босса, магазин, перки, бесконечный режим и таблица рекордов. Игра собрана
+      под web и мобильные платформы, локализована на четыре языка и подготовлена
+      к публикации во ВКонтакте и Yandex Games.
+    </p>
+
+    <div class="links reveal d2">
+      <a href="https://vk.com/app54898695" target="_blank" rel="noopener">Играть во ВКонтакте <span aria-hidden="true">↗</span></a>
+      <a class="secondary" href="img/zombie/trailer.mp4" target="_blank" rel="noopener">Смотреть трейлер <span aria-hidden="true">↗</span></a>
+    </div>
+
+    <div class="metrics">
+      <div class="metric reveal d1"><div class="v">15</div><div class="l">волн в кампании</div></div>
+      <div class="metric reveal d2"><div class="v">3</div><div class="l">босса: Мясник, Плевун, Матка</div></div>
+      <div class="metric reveal d3"><div class="v">4</div><div class="l">языка: RU, EN, TR, HI</div></div>
+      <div class="metric reveal d4"><div class="v">2</div><div class="l">платформы: VK Mini Apps, Yandex Games</div></div>
+    </div>
+
+    <div class="cols">
+      <div class="reveal from-left">
+        <h3 style="font-size:17px; margin-bottom:10px;">Что умеет</h3>
+        <ul class="feat">
+          <li>Кампания на 15 волн, боссы на 5, 10 и 15, после прохождения - бесконечный режим с топ-10</li>
+          <li>Три оружия с отдельными магазинами и патронами, гранаты, магазин между волнами, перки и воскрешение</li>
+          <li>Управление под PC и мобильные: WASD + мышь или виртуальный стик и автострельба</li>
+          <li>Локализация RU / EN / TR / HI с автоопределением языка</li>
+          <li>Yandex Games SDK: rewarded ads, лидерборд и сохранение; VK Bridge для Mini Apps</li>
+          <li>Сборка Godot 4.7 GL Compatibility, web-экспорт, оптимизация под 60 FPS и safe-area</li>
+        </ul>
+        <div class="stack">
+          <span class="chip">Godot 4.7</span><span class="chip">GDScript</span>
+          <span class="chip">VK Mini Apps</span><span class="chip">Yandex Games SDK</span>
+          <span class="chip">Web export</span><span class="chip">GL Compatibility</span>
+          <span class="chip">Game design</span><span class="chip">Локализация</span><span class="chip">Git</span>
+        </div>
+      </div>
+      <div class="reveal from-right">
+        <h3 style="font-size:17px; margin-bottom:10px;">Сложности и решения</h3>
+        <ul class="feat">
+          <li>Собрать законченный цикл: волны, боссы, экономика, магазин, перки и бесконечный режим</li>
+          <li>Сбалансировать 15 волн и топ: сложность растёт, но первые волны не отпугивают</li>
+          <li>Один ввод для PC и телефона: стик, автострельба и кнопки действий</li>
+          <li>Web/mobile: GL Compatibility, размер сборки, загрузка и стабильные 60 FPS</li>
+          <li>SDK и публикация: Yandex Games SDK, VK Bridge, rewarded ads, лидерборд, сохранения</li>
+          <li>Локализация и store-ассеты: 4 языка, иконки, обложки, скриншоты и трейлер</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="gallery two">
+      <figure class="reveal zoom">
+        <img src="img/zombie/desktop_showcase.png" alt="Zombie Waves: бой с боссом на восьмой волне" loading="lazy" width="1600" height="900">
+        <figcaption>Волна 8: бой с боссом, HUD, перки и оружие. Кампания на 15 волн с тремя боссами</figcaption>
+      </figure>
+      <figure class="reveal d1 zoom">
+        <img src="img/zombie/mobile_showcase.png" alt="Zombie Waves на телефоне: виртуальный стик и кнопки действий" loading="lazy" width="1600" height="900">
+        <figcaption>Мобильная версия: виртуальный стик, автострельба и кнопки W / R / G</figcaption>
+      </figure>
+      <figure class="reveal d2 zoom">
+        <img src="img/zombie/desktop_shop.png" alt="Магазин Zombie Waves между волнами" loading="lazy" width="1600" height="900">
+        <figcaption>Магазин между волнами: HP, броня, оружие, патроны и перки за монеты</figcaption>
+      </figure>
+      <figure class="reveal d3 zoom">
+        <img src="img/zombie/desktop_victory.png" alt="Экран завершения кампании Zombie Waves" loading="lazy" width="1600" height="900">
+        <figcaption>Финал кампании: открытие бесконечного режима и таблицы рекордов</figcaption>
+      </figure>
+    </div>
+
+    <div class="result reveal">
+      <b>Результат:</b> законченный игровой прототип с кампанией, боссами, магазином,
+      перками и бесконечным режимом. Игра собрана под web и мобильные платформы,
+      локализована на четыре языка, получила store-ассеты и трейлер. VK Mini App
+      доступен по ссылке.
+    </div>
+  </div>
+</section>
+
+<section id="vpn">
+  <div class="wrap">
+    <h2 class="reveal"><span class="num">05</span>Скринер прокси и VPN-конфигов</h2>
+    <p class="lead reveal d1">
+      Инструмент для массовой проверки прокси и VPN-конфигов по реальным сценариям.
+      Собирает подписки, отсеивает мёртвые серверы, проверяет доступность YouTube,
+      Telegram, AnyViewer и ChatGPT, измеряет задержку и стабильность, а на выходе
+      собирает готовые списки, HTML-отчёт и QR-код для телефона.
+    </p>
+
+    <div class="metrics">
+      <div class="metric reveal d1"><div class="v">1605</div><div class="l">конфигов в одном скане</div></div>
+      <div class="metric reveal d2"><div class="v">44</div><div class="l">прошли проверки</div></div>
+      <div class="metric reveal d3"><div class="v">4</div><div class="l">сервиса: YouTube, Telegram, AnyViewer, ChatGPT</div></div>
+      <div class="metric reveal d4"><div class="v">7 мин</div><div class="l">полный цикл проверки</div></div>
+    </div>
+
+    <div class="cols">
+      <div class="reveal from-left">
+        <h3 style="font-size:17px; margin-bottom:10px;">Что умеет</h3>
+        <ul class="feat">
+          <li>Собирает конфиги из Happ и открытых подписок, убирает дубликаты</li>
+          <li>Проверяет TCP-доступность, затем реальные сценарии через Xray: YouTube, Telegram, AnyViewer, ChatGPT</li>
+          <li>Меряет задержку, скорость и стабильность на нескольких попытках</li>
+          <li>Формирует списки по каждому сервису, топ локаций, JSON / CSV и HTML-отчёт</li>
+          <li>QR-код и ссылка для телефона, публикация подписок, управление Xray и системным прокси Windows</li>
+          <li>Многопоточность, кэш и история сканов в SQLite</li>
+        </ul>
+        <div class="stack">
+          <span class="chip">Python</span><span class="chip">Xray</span><span class="chip">Happ</span>
+          <span class="chip">requests</span><span class="chip">SQLite</span><span class="chip">Многопоточность</span>
+          <span class="chip">HTML-отчёты</span><span class="chip">QR</span><span class="chip">Windows proxy</span>
+          <span class="chip">Termux</span>
+        </div>
+      </div>
+      <div class="reveal from-right">
+        <h3 style="font-size:17px; margin-bottom:10px;">Сложности и решения</h3>
+        <ul class="feat">
+          <li>Из 1605 конфигов рабочими оказались 44 - важно быстро отсеять мёртвые и не показывать ложные результаты</li>
+          <li>Проверка не «порт открыт», а реальный обмен через прокси: таймауты, TLS, редиректы</li>
+          <li>Xray-процессы: запуск, изоляция, очистка и системный прокси Windows</li>
+          <li>Один успешный запрос не гарантирует стабильность - несколько попыток и порог по сервисам</li>
+          <li>Безопасность: конфиги, IP и ссылки не попадают в публичные отчёты и скриншоты</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="gallery one">
+      <figure class="reveal d1">
+        <img src="img/proxy/menu.png" alt="Консольное меню VPN Screener" loading="lazy" width="1180" height="538">
+        <figcaption>Консольное меню: обновление списков, топ локаций, QR для телефона, проверка стабильности и публикация</figcaption>
+      </figure>
+      <figure class="reveal d2">
+        <img src="img/proxy/report.png" alt="HTML-отчёт VPN Screener с обезличенными адресами серверов" loading="lazy" width="1440" height="1000">
+        <figcaption>HTML-отчёт: 1605 конфигов, сортировка по сервисам и задержке. Адреса серверов, имена и ссылки скрыты</figcaption>
+      </figure>
+    </div>
+
+    <div class="result blue reveal">
+      <b>Безопасность:</b> в портфолио не попадают рабочие конфиги, IP-адреса и ссылки
+      подписок. Скриншоты отчёта обезличены, а рабочие списки хранятся в приватном
+      репозитории и не публикуются.
+    </div>
+
+    <div class="result reveal">
+      <b>Результат:</b> один запуск собирает 1605 конфигов, проверяет их по четырём
+      сценариям и формирует готовые списки, HTML-отчёт и QR для телефона. В последнем
+      прогоне 44 конфига прошли проверки.
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2 class="reveal">Навыки</h2>
+    <div class="cols">
+      <div class="reveal from-left">
+        <h3 style="font-size:17px; margin-bottom:12px;">Разработка</h3>
+        <div class="stack">
+          <span class="chip">Python (основной язык)</span><span class="chip">ООП и модульная структура</span>
+          <span class="chip">pytest</span><span class="chip">Git</span><span class="chip">PEP 8</span>
+          <span class="chip">Документация</span><span class="chip">venv / pip</span>
+        </div>
+        <h3 style="font-size:17px; margin:22px 0 12px;">Компьютерное зрение</h3>
+        <div class="stack">
+          <span class="chip">YOLOv8 (обучение и инференс)</span><span class="chip">Ultralytics</span>
+          <span class="chip">Google Colab</span><span class="chip">OpenCV</span>
+          <span class="chip">Разметка данных</span><span class="chip">EasyOCR</span>
+          <span class="chip">Шаблонное сопоставление</span><span class="chip">Морфология</span>
+        </div>
+        <h3 style="font-size:17px; margin:22px 0 12px;">Game Dev</h3>
+        <div class="stack">
+          <span class="chip">Godot 4.7</span><span class="chip">GDScript</span>
+          <span class="chip">Yandex Games SDK</span><span class="chip">VK Bridge</span>
+          <span class="chip">Web export</span><span class="chip">Game design</span>
+        </div>
+      </div>
+      <div class="reveal from-right">
+        <h3 style="font-size:17px; margin-bottom:12px;">Автоматизация</h3>
+        <div class="stack">
+          <span class="chip">Win32 API / ctypes</span><span class="chip">SendInput</span>
+          <span class="chip">Системные хуки</span><span class="chip">mss / скриншоты</span>
+          <span class="chip">pyautogui</span><span class="chip">Потоки и процессы</span>
+          <span class="chip">Горячие клавиши</span>
+        </div>
+        <h3 style="font-size:17px; margin:22px 0 12px;">Данные</h3>
+        <div class="stack">
+          <span class="chip">Парсинг HTML</span><span class="chip">Регулярные выражения</span>
+          <span class="chip">Работа с API</span><span class="chip">JSON / TXT / JSONL</span>
+          <span class="chip">NumPy</span>
+        </div>
+        <h3 style="font-size:17px; margin:22px 0 12px;">Интерфейсы</h3>
+        <div class="stack">
+          <span class="chip">Tkinter</span><span class="chip">Консольные утилиты</span>
+        </div>
+        <h3 style="font-size:17px; margin:22px 0 12px;">Сети и инфраструктура</h3>
+        <div class="stack">
+          <span class="chip">TCP / TLS</span><span class="chip">Xray</span>
+          <span class="chip">Прокси / VPN</span><span class="chip">SQLite</span>
+          <span class="chip">Многопоточность</span><span class="chip">Windows proxy</span>
+          <span class="chip">Termux</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacts">
+  <div class="wrap">
+    <h2 class="reveal">Контакты</h2>
+    <p class="lead reveal d1">
+      Открыт к проектам по автоматизации, компьютерному зрению, game dev и сетевым инструментам.
+    </p>
+    <div class="stack reveal d2" style="gap:12px;">
+      <a class="chip" style="font-size:14px; padding:9px 18px;" href="https://t.me/KolesnikowK" target="_blank" rel="noopener">Telegram: @KolesnikowK</a>
+      <a class="chip" style="font-size:14px; padding:9px 18px;" href="mailto:kirillkolesnikow2106@gmail.com">Email: kirillkolesnikow2106@gmail.com</a>
+      <a class="chip" style="font-size:14px; padding:9px 18px;" href="https://github.com/Realistiks" target="_blank" rel="noopener">GitHub: Realistiks</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Кирилл Колесников · портфолио · 2026 · страница не содержит исходного кода проектов
+  </div>
+</footer>
+
+<div class="lightbox" id="lb"><img alt="Увеличенное изображение"></div>
+
+<script>
+  // Лайтбокс
+  document.querySelectorAll('figure img').forEach(function (img) {
+    img.addEventListener('click', function () {
+      var lb = document.getElementById('lb');
+      lb.querySelector('img').src = img.src;
+      lb.querySelector('img').alt = img.alt;
+      lb.classList.add('open');
+    });
+  });
+  document.getElementById('lb').addEventListener('click', function () {
+    this.classList.remove('open');
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') document.getElementById('lb').classList.remove('open');
+  });
+
+  // Анимации при скролле
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+  // Перед печатью/сохранением в PDF: показать все анимации и догрузить ленивые картинки
+  window.addEventListener('beforeprint', function () {
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+    document.querySelectorAll('img[loading="lazy"]').forEach(function (img) {
+      img.loading = 'eager';
+      if (!img.complete) { var s = img.src; img.src = ''; img.src = s; }
+    });
+  });
+</script>
+
+</body>
+</html>
