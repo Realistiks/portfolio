@@ -274,6 +274,7 @@
     <a href="#funpay">Парсер FunPay</a>
     <a href="#zombie">Zombie Waves</a>
     <a href="#vpn">Proxy-скринер</a>
+    <a href="#yolo">YOLO-модель</a>
     <a href="#skills">Навыки</a>
     <a href="#contacts">Контакты</a>
   </div>
@@ -656,6 +657,72 @@
   </div>
 </section>
 
+<section id="yolo">
+  <div class="wrap">
+    <h2 class="reveal"><span class="num">06</span>Обучение YOLO-модели для аукциона</h2>
+    <p class="lead reveal d1">
+      Для аукционного бота нужно было читать количество предметов и цену выкупа прямо со скриншотов тёмного интерфейса.
+      Готовый OCR пропускал числа и путал близкие поля, поэтому я собрал отдельный детектор на Ultralytics YOLO:
+      разметил данные, дообучил модель и подключил её к боту перед распознаванием текста.
+    </p>
+
+    <div class="metrics">
+      <div class="metric reveal d1"><div class="v">2</div><div class="l">класса: quantity и buyout_price</div></div>
+      <div class="metric reveal d2"><div class="v">90</div><div class="l">кадров в датасете с разметкой</div></div>
+      <div class="metric reveal d3"><div class="v">150</div><div class="l">эпох в финальном прогоне на T4</div></div>
+      <div class="metric reveal d4"><div class="v">1280</div><div class="l">размер входа imgsz в Colab</div></div>
+    </div>
+
+    <div class="cols">
+      <div class="reveal from-left">
+        <h3 style="font-size:17px; margin-bottom:10px;">Что сделал</h3>
+        <ul class="feat">
+          <li>Собрал датасет скриншотов аукциона с таймерами, рублёвыми ценами и строками с количеством в тёмных панелях</li>
+          <li>Подготовил две версии датасета на Ultralytics Platform: сначала Price/Count, затем buyout_price/quantity</li>
+          <li>Дообучил YOLOv8s от публичных весов Platform, потом продолжил в Google Colab на Tesla T4: 150 эпох, imgsz 1280, patience и масштабирование</li>
+          <li>Настроил аугментации под интерфейс: scale без переворотов, чтобы не испортить направление цифр и подписей</li>
+          <li>Собрал локальный YOLO Studio: разметка боксов, автопрефилл YOLO11n и YOLO-World, генерация data.yaml, обучение с графиками loss и валидация с mAP50 / mAP50-95, матрицей ошибок и PR/F1-кривыми</li>
+          <li>Подключил лучшие веса к боту: детектор выделяет области цены и количества, затем их читает OCR</li>
+        </ul>
+        <div class="stack">
+          <span class="chip">Python</span><span class="chip">Ultralytics</span><span class="chip">YOLOv8s</span>
+          <span class="chip">YOLO11n</span><span class="chip">YOLO-World</span><span class="chip">Google Colab</span>
+          <span class="chip">Tesla T4</span><span class="chip">OpenCV</span><span class="chip">EasyOCR</span>
+          <span class="chip">Разметка данных</span><span class="chip">mAP50 / mAP50-95</span><span class="chip">PySide6</span>
+        </div>
+      </div>
+      <div class="reveal from-right">
+        <h3 style="font-size:17px; margin-bottom:10px;">Сложности и решения</h3>
+        <ul class="feat">
+          <li>Маленький датасет: вместо обучения с нуля использовал дообучение публичных весов и аугментации</li>
+          <li>Похожие числа в соседних колонках: развёл цену выкупа и количество по разным классам, чтобы не путать поля</li>
+          <li>Длинные прогоны в Colab: чекпоинты last.pt и best.pt каждые 10 эпох уходили в Google Drive</li>
+          <li>Платформа и локальный инструмент: датасет и веса живут в Ultralytics Platform, разметка и валидация - в собственном GUI</li>
+          <li>Веса не попадают в git: *.pt в .gitignore, боевая модель хранится отдельно от репозитория</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="gallery one">
+      <figure class="reveal d1">
+        <img src="img/yolo/detections.png" alt="Детекции YOLOv8 на скриншоте аукциона: quantity и buyout_price" loading="lazy" width="2056" height="720">
+        <figcaption>Слева исходный кадр, справа детекции YOLOv8: количество и цена выкупа выделены отдельными классами</figcaption>
+      </figure>
+    </div>
+
+    <div class="result blue reveal">
+      <b>Почему это важно:</b> детектор сужает задачу до двух областей на скриншоте, поэтому OCR читает именно нужные числа
+      и не реагирует на таймеры, названия предметов и прочий шум интерфейса.
+    </div>
+
+    <div class="result reveal">
+      <b>Результат:</b> обученная модель распознаёт количество и цену выкупа на скриншотах аукциона и используется в боте
+      как первый шаг перед OCR. Весь цикл - разметка, обучение, валидация - можно повторить в локальном YOLO Studio.
+    </div>
+  </div>
+</section>
+
+
 <section id="skills">
   <div class="wrap">
     <h2 class="reveal">Навыки</h2>
@@ -669,7 +736,7 @@
         </div>
         <h3 style="font-size:17px; margin:22px 0 12px;">Компьютерное зрение</h3>
         <div class="stack">
-          <span class="chip">YOLOv8 (обучение и инференс)</span><span class="chip">Ultralytics</span>
+          <span class="chip">YOLOv8 / YOLO11 (обучение и инференс)</span><span class="chip">Ultralytics Platform</span><span class="chip">YOLO-World</span>
           <span class="chip">Google Colab</span><span class="chip">OpenCV</span>
           <span class="chip">Разметка данных</span><span class="chip">EasyOCR</span>
           <span class="chip">Шаблонное сопоставление</span><span class="chip">Морфология</span>

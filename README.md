@@ -7,6 +7,7 @@ Python-разработчик: автоматизация, компьютерн�
 ## Проекты
 
 - Автозакупка лотов на аукционе: YOLOv8, OCR и автоматизация интерфейса.
+- Обучение YOLO-модели: разметка датасета, дообучение YOLOv8s на Ultralytics Platform и в Colab на T4, валидация и интеграция в бота.
 - Порт игрового макроса с Keyran на Python.
 - Парсер цен FunPay.
 - Zombie Waves - top-down шутер на Godot 4 для VK Mini Apps и Yandex Games.
