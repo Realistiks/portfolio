@@ -246,6 +246,15 @@
     font-size: 15px;
   }
   .result b { color: var(--accent); }
+  .lang-switch { position: absolute; top: 24px; right: 24px; display: flex; gap: 6px; }
+  body { position: relative; }
+  .lang {
+    font: inherit; font-size: 12px; font-weight: 700; cursor: pointer;
+    color: var(--muted); background: transparent; border: 1px solid var(--border);
+    border-radius: 999px; padding: 5px 12px;
+  }
+  .lang.active { color: var(--accent); border-color: rgba(63,185,80,.5); background: rgba(63,185,80,.12); }
+
   [hidden] { display: none !important; }
   .filters { display: flex; flex-wrap: wrap; gap: 8px; max-width: 1080px; margin: 0 auto; padding: 36px 24px 0; }
   .filter {
@@ -321,8 +330,8 @@
 <header>
   <div class="wrap">
     <div class="intro">
-      <h1 class="reveal">Кирилл Колесников<span class="dot">.</span></h1>
-      <div class="subtitle reveal d1">Python-разработчик: автоматизация, компьютерное зрение, сети и игры на Godot</div>
+      <h1 class="reveal"><span data-i18n="name">Кирилл Колесников</span><span class="dot">.</span></h1>
+      <div data-i18n="subtitle" class="subtitle reveal d1">Python-разработчик: автоматизация, компьютерное зрение, сети и игры на Godot</div>
       <div class="tags reveal d2">
         <span class="tag">Python</span>
         <span class="tag">Computer Vision</span>
@@ -336,6 +345,10 @@
         <span class="tag">Тесты</span>
       </div>
     </div>
+    <div class="lang-switch" aria-label="Language">
+      <button class="lang active" type="button" data-lang="ru">RU</button>
+      <button class="lang" type="button" data-lang="en">EN</button>
+    </div>
     <div class="portrait reveal zoom" aria-label="Фотография автора">
       <img src="img/me.jpg" alt="Кирилл Колесников, Python-разработчик" width="500" height="500">
     </div>
@@ -344,37 +357,37 @@
 
 <nav>
   <div class="wrap">
-    <a href="#about">Обо мне</a>
-    <a href="#auction">Автозакупка лотов</a>
-    <a href="#funpay">Парсер FunPay</a>
-    <a href="#zombie">Zombie Waves</a>
-    <a href="#yolo">YOLO-модель</a>
-    <a href="#tomato">СТЗ для томатов</a>
-    <a href="#skills">Навыки</a>
-    <a href="#contacts">Контакты</a>
+    <a href="#about" data-i18n="nav_about">Обо мне</a>
+    <a href="#auction" data-i18n="nav_auction">Автозакупка лотов</a>
+    <a href="#funpay" data-i18n="nav_funpay">Парсер FunPay</a>
+    <a href="#zombie" data-i18n="nav_zombie">Zombie Waves</a>
+    <a href="#yolo" data-i18n="nav_yolo">YOLO-модель</a>
+    <a href="#tomato" data-i18n="nav_tomato">СТЗ для томатов</a>
+    <a href="#skills" data-i18n="nav_skills">Навыки</a>
+    <a href="#contacts" data-i18n="nav_contacts">Контакты</a>
   </div>
   <div class="nav-progress" aria-hidden="true"><span></span></div>
 </nav>
 
 <section id="about">
   <div class="wrap">
-    <h2 class="reveal">Обо мне</h2>
-    <p class="lead reveal d1">
+    <h2 data-i18n="about_title" class="reveal">Обо мне</h2>
+    <p class="lead reveal d1" data-i18n="about_lead1">
       Занимаюсь разработкой на Python около года в статусе самозанятого. Основное направление -
       инструменты автоматизации на базе компьютерного зрения: боты, которые видят экран,
       принимают решения и выполняют действия вместо человека. В работе - от разметки данных
       и обучения моделей до интерфейса, тестов и документации. Отдельно развиваю game dev
       на Godot и сетевые инструменты: от игрового цикла до проверки прокси и VPN-конфигов.
     </p>
-    <p class="lead reveal d1">
+    <p class="lead reveal d1" data-i18n="about_lead2">
       Опыт: 1 год коммерческой разработки на себя (самозанятость): TODO: N продуктов,
       выручка ~X ₽/мес, договоры/СМЗ.
     </p>
     <div class="metrics">
-      <div class="metric reveal d1"><div class="v">1 год</div><div class="l">самозанятость, коммерческие проекты</div></div>
-      <div class="metric reveal d2"><div class="v">7</div><div class="l">проектов в портфолио</div></div>
-      <div class="metric reveal d3"><div class="v">8 600+</div><div class="l">строк кода в основном проекте</div></div>
-      <div class="metric reveal d4"><div class="v">19</div><div class="l">автотестов, все зелёные</div></div>
+      <div class="metric reveal d1"><div class="v">1 год</div><div class="l" data-i18n="m1">самозанятость, коммерческие проекты</div></div>
+      <div class="metric reveal d2"><div class="v">7</div><div class="l" data-i18n="m2">проектов в портфолио</div></div>
+      <div class="metric reveal d3"><div class="v">8 600+</div><div class="l" data-i18n="m3">строк кода в основном проекте</div></div>
+      <div class="metric reveal d4"><div class="v">19</div><div class="l" data-i18n="m4">автотестов, все зелёные</div></div>
     </div>
   </div>
 </section>
@@ -382,17 +395,17 @@
 <div id="projects-anchor" aria-hidden="true"></div>
 
 <div class="filters reveal" role="tablist" aria-label="Направления проектов">
-  <button class="filter active" type="button" data-filter="all" role="tab">Все</button>
-  <button class="filter" type="button" data-filter="cv" role="tab">Computer Vision</button>
-  <button class="filter" type="button" data-filter="automation" role="tab">Автоматизация</button>
-  <button class="filter" type="button" data-filter="gamedev" role="tab">Game Dev</button>
-  <button class="filter" type="button" data-filter="networks" role="tab">Сети</button>
+  <button class="filter active" type="button" data-filter="all" role="tab"><span data-i18n="filter_all">Все</span></button>
+  <button class="filter" type="button" data-filter="cv" role="tab"><span data-i18n="filter_cv">Computer Vision</span></button>
+  <button class="filter" type="button" data-filter="automation" role="tab"><span data-i18n="filter_auto">Автоматизация</span></button>
+  <button class="filter" type="button" data-filter="gamedev" role="tab"><span data-i18n="filter_game">Game Dev</span></button>
+  <button class="filter" type="button" data-filter="networks" role="tab"><span data-i18n="filter_net">Сети</span></button>
 </div>
-<p id="cv-subtitle" hidden>Computer Vision / ML engineer: YOLO, OCR, edge-деплой</p>
+<p data-i18n="cv_subtitle" id="cv-subtitle" hidden>Computer Vision / ML engineer: YOLO, OCR, edge-деплой</p>
 
 <section id="auction" class="project" data-cat="cv automation">
   <div class="wrap">
-    <h2 class="reveal"><span class="num">01</span>Автозакупка лотов на аукционе</h2>
+    <h2 class="reveal"><span class="num">01</span><span data-i18n="p1">Автозакупка лотов на аукционе</span></h2>
     <p class="lead reveal d1">
       Настольный бот, который сам находит выгодные лоты на внутриигровом аукционе и выкупает их.
       Смотрит на экран через компьютерное зрение: модель YOLO находит бейджи количества и цены,
@@ -407,7 +420,16 @@
       <div class="metric reveal d4"><div class="v">0</div><div class="l">ложных покупок на 720 проверках</div></div>
     </div>
 
-    <div class="cols">
+    
+    <div class="metrics ml-metrics reveal">
+      <div class="metric"><div class="v">TODO</div><div class="l">mAP50</div></div>
+      <div class="metric"><div class="v">TODO</div><div class="l">mAP50-95</div></div>
+      <div class="metric"><div class="v">TODO</div><div class="l">precision</div></div>
+      <div class="metric"><div class="v">TODO</div><div class="l">recall</div></div>
+      <div class="metric"><div class="v">TODO</div><div class="l">F1</div></div>
+    </div>
+
+<div class="cols">
       <div class="reveal from-left">
         <h3 style="font-size:17px; margin-bottom:10px;">Что умеет</h3>
         <ul class="feat">
@@ -421,7 +443,7 @@
         <div class="stack">
           <span class="chip">Python</span><span class="chip">YOLOv8</span><span class="chip">EasyOCR</span>
           <span class="chip">OpenCV</span><span class="chip">NumPy</span><span class="chip">Tkinter</span>
-          <span class="chip">mss</span><span class="chip">pyautogui</span><span class="chip">pytest</span><span class="chip">Git</span>
+          <span class="chip">mss</span><span class="chip">pyautogui</span><span class="chip">pytest</span><span class="chip">Git</span><span class="chip">PyTorch</span><span class="chip">Ultralytics</span>
         </div>
       </div>
       <div class="reveal from-right">
@@ -473,7 +495,7 @@
     </div>
 
     <div class="links reveal">
-      <span class="links__label">Ссылки:</span>
+      <span data-i18n="links" class="links__label">Ссылки:</span>
       <span class="chip">GitHub-репо: TODO URL</span>
       <span class="chip">TODO: статус репо (приватное - репо приватное, код по запросу)</span>
     </div>
@@ -484,7 +506,7 @@
 
 <section id="funpay" class="project" data-cat="automation">
   <div class="wrap">
-    <h2 class="reveal"><span class="num">03</span>Парсер цен FunPay</h2>
+    <h2 class="reveal"><span class="num">03</span><span data-i18n="p3">Парсер цен FunPay</span></h2>
     <p class="lead reveal d1">
       Инструмент для оценки рыночной цены: собирает предложения продавцов на FunPay,
       отсеивает ненадёжных, считает среднюю по лучшим предложениям и показывает окупаемость
@@ -548,7 +570,7 @@
 
 <section id="zombie" class="project" data-cat="gamedev">
   <div class="wrap">
-    <h2 class="reveal"><span class="num">04</span>Zombie Waves - игра на Godot</h2>
+    <h2 class="reveal"><span class="num">04</span><span data-i18n="p4">Zombie Waves - игра на Godot</span></h2>
     <p class="lead reveal d1">
       Top-down зомби-шутер, который я сделал на Godot 4 с нуля: кампания на 15 волн,
       три босса, магазин, перки, бесконечный режим и таблица рекордов. Игра собрана
@@ -638,7 +660,7 @@
 
 <section id="yolo" class="project" data-cat="cv">
   <div class="wrap">
-    <h2 class="reveal"><span class="num">06</span>Обучение YOLO-модели для аукциона</h2>
+    <h2 class="reveal"><span class="num">06</span><span data-i18n="p6">Обучение YOLO-модели для аукциона</span></h2>
     <p class="lead reveal d1">
       Для аукционного бота нужно было читать количество предметов и цену выкупа прямо со скриншотов тёмного интерфейса.
       Готовый OCR пропускал числа и путал близкие поля, поэтому я собрал отдельный детектор на Ultralytics YOLO:
@@ -652,7 +674,16 @@
       <div class="metric reveal d4"><div class="v">1280</div><div class="l">размер входа imgsz в Colab</div></div>
     </div>
 
-    <div class="cols">
+    
+    <div class="metrics ml-metrics reveal">
+      <div class="metric"><div class="v">TODO</div><div class="l">mAP50</div></div>
+      <div class="metric"><div class="v">TODO</div><div class="l">mAP50-95</div></div>
+      <div class="metric"><div class="v">TODO</div><div class="l">precision</div></div>
+      <div class="metric"><div class="v">TODO</div><div class="l">recall</div></div>
+      <div class="metric"><div class="v">TODO</div><div class="l">F1</div></div>
+    </div>
+
+<div class="cols">
       <div class="reveal from-left">
         <h3 style="font-size:17px; margin-bottom:10px;">Что сделал</h3>
         <ul class="feat">
@@ -667,7 +698,7 @@
           <span class="chip">Python</span><span class="chip">Ultralytics</span><span class="chip">YOLOv8s</span>
           <span class="chip">YOLO11n</span><span class="chip">YOLO-World</span><span class="chip">Google Colab</span>
           <span class="chip">Tesla T4</span><span class="chip">OpenCV</span><span class="chip">EasyOCR</span>
-          <span class="chip">Разметка данных</span><span class="chip">mAP50 / mAP50-95</span><span class="chip">PySide6</span>
+          <span class="chip">Разметка данных</span><span class="chip">mAP50 / mAP50-95</span><span class="chip">PySide6</span><span class="chip">PyTorch</span><span class="chip">Ultralytics</span>
         </div>
       </div>
       <div class="reveal from-right">
@@ -710,7 +741,7 @@
 
 <section id="tomato" class="project" data-cat="cv">
   <div class="wrap">
-    <h2 class="reveal"><span class="num">07</span>Система технического зрения для распознавания томатов</h2>
+    <h2 class="reveal"><span class="num">07</span><span data-i18n="p7">Система технического зрения для распознавания томатов</span></h2>
     <div class="award reveal d1">Победитель регионального трека «Большие вызовы», 2024/2025</div>
     <p class="lead reveal d1">
       Проект для Всероссийского конкурса научно-технологических проектов «Большие вызовы» 2024/2025 учебного года,
@@ -727,7 +758,16 @@
       <div class="metric reveal d4"><div class="v">v11m</div><div class="l">модель YOLO после перехода</div></div>
     </div>
 
-    <div class="cols">
+    
+    <div class="metrics ml-metrics reveal">
+      <div class="metric"><div class="v">TODO</div><div class="l">mAP50</div></div>
+      <div class="metric"><div class="v">TODO</div><div class="l">mAP50-95</div></div>
+      <div class="metric"><div class="v">TODO</div><div class="l">precision</div></div>
+      <div class="metric"><div class="v">TODO</div><div class="l">recall</div></div>
+      <div class="metric"><div class="v">TODO</div><div class="l">F1</div></div>
+    </div>
+
+<div class="cols">
       <div class="reveal from-left">
         <h3 style="font-size:17px; margin-bottom:10px;">Что делал</h3>
         <ul class="feat">
@@ -743,7 +783,7 @@
           <span class="chip">Python</span><span class="chip">OpenCV</span><span class="chip">Каскады Хаара</span>
           <span class="chip">Ultralytics YOLOv11</span><span class="chip">ESP32-CAM</span><span class="chip">Arduino IDE</span>
           <span class="chip">Видеопоток</span><span class="chip">Аннотация данных</span><span class="chip">GPU</span>
-          <span class="chip">Победитель «Больших вызовов»</span>
+          <span class="chip">Победитель «Больших вызовов»</span><span class="chip">PyTorch</span><span class="chip">Ultralytics</span>
         </div>
       </div>
       <div class="reveal from-right">
@@ -799,23 +839,23 @@
 
 <section id="skills">
   <div class="wrap">
-    <h2 class="reveal">Навыки</h2>
+    <h2 class="reveal" data-i18n="skills_title">Навыки</h2>
     <div class="cols">
       <div class="reveal from-left">
-        <h3 style="font-size:17px; margin-bottom:12px;">Разработка</h3>
+        <h3 style="font-size:17px; margin-bottom:12px;" data-i18n="skills_dev">Разработка</h3>
         <div class="stack">
           <span class="chip">Python (основной язык)</span><span class="chip">ООП и модульная структура</span>
           <span class="chip">pytest</span><span class="chip">Git</span><span class="chip">PEP 8</span>
           <span class="chip">Документация</span><span class="chip">venv / pip</span>
         </div>
-        <h3 style="font-size:17px; margin:22px 0 12px;">Компьютерное зрение</h3>
+        <h3 style="font-size:17px; margin:22px 0 12px;" data-i18n="skills_cv">Компьютерное зрение</h3>
         <div class="stack">
           <span class="chip">YOLOv8 / YOLO11 (обучение и инференс)</span><span class="chip">Ultralytics Platform</span><span class="chip">YOLO-World</span>
           <span class="chip">Google Colab</span><span class="chip">OpenCV</span>
           <span class="chip">Разметка данных</span><span class="chip">EasyOCR</span>
-          <span class="chip">Шаблонное сопоставление</span><span class="chip">Морфология</span>
+          <span class="chip">Шаблонное сопоставление</span><span class="chip">Морфология</span><span class="chip">PyTorch</span><span class="chip">Ultralytics</span>
         </div>
-        <h3 style="font-size:17px; margin:22px 0 12px;">Game Dev</h3>
+        <h3 style="font-size:17px; margin:22px 0 12px;" data-i18n="skills_game">Game Dev</h3>
         <div class="stack">
           <span class="chip">Godot 4.7</span><span class="chip">GDScript</span>
           <span class="chip">Yandex Games SDK</span><span class="chip">VK Bridge</span>
@@ -823,24 +863,24 @@
         </div>
       </div>
       <div class="reveal from-right">
-        <h3 style="font-size:17px; margin-bottom:12px;">Автоматизация</h3>
+        <h3 style="font-size:17px; margin-bottom:12px;" data-i18n="skills_auto">Автоматизация</h3>
         <div class="stack">
           <span class="chip">Win32 API / ctypes</span><span class="chip">SendInput</span>
           <span class="chip">Системные хуки</span><span class="chip">mss / скриншоты</span>
           <span class="chip">pyautogui</span><span class="chip">Потоки и процессы</span>
           <span class="chip">Горячие клавиши</span>
         </div>
-        <h3 style="font-size:17px; margin:22px 0 12px;">Данные</h3>
+        <h3 style="font-size:17px; margin:22px 0 12px;" data-i18n="skills_data">Данные</h3>
         <div class="stack">
           <span class="chip">Парсинг HTML</span><span class="chip">Регулярные выражения</span>
           <span class="chip">Работа с API</span><span class="chip">JSON / TXT / JSONL</span>
           <span class="chip">NumPy</span>
         </div>
-        <h3 style="font-size:17px; margin:22px 0 12px;">Интерфейсы</h3>
+        <h3 style="font-size:17px; margin:22px 0 12px;" data-i18n="skills_ui">Интерфейсы</h3>
         <div class="stack">
           <span class="chip">Tkinter</span><span class="chip">Консольные утилиты</span>
         </div>
-        <h3 style="font-size:17px; margin:22px 0 12px;">Сети и инфраструктура</h3>
+        <h3 style="font-size:17px; margin:22px 0 12px;" data-i18n="skills_net">Сети и инфраструктура</h3>
         <div class="stack">
           <span class="chip">TCP / TLS</span><span class="chip">Xray</span>
           <span class="chip">Прокси / VPN</span><span class="chip">SQLite</span>
@@ -854,8 +894,8 @@
 
 <section id="contacts">
   <div class="wrap">
-    <h2 class="reveal">Контакты</h2>
-    <p class="lead reveal d1">
+    <h2 data-i18n="contacts_title" class="reveal">Контакты</h2>
+    <p class="lead reveal d1" data-i18n="contacts_lead">
       Открыт к проектам по автоматизации, компьютерному зрению, game dev и сетевым инструментам.
     </p>
     <div class="stack reveal d2" style="gap:12px;">
@@ -871,9 +911,7 @@
 </section>
 
 <footer>
-  <div class="wrap">
-    Кирилл Колесников · портфолио · 2026 · страница не содержит исходного кода проектов
-  </div>
+  <div class="wrap"><span data-i18n="footer">Кирилл Колесников · портфолио · 2026 · страница не содержит исходного кода проектов</span></div>
 </footer>
 
 <div class="lightbox" id="lb"><img alt="Увеличенное изображение"></div>
@@ -894,6 +932,26 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') document.getElementById('lb').classList.remove('open');
   });
+
+
+  // Переключатель RU/EN
+  (function () {
+    var DICT = {"name": {"ru": "Кирилл Колесников", "en": "Kirill Kolesnikov"}, "subtitle": {"ru": "Python-разработчик: автоматизация, компьютерное зрение, сети и игры на Godot", "en": "Python developer: automation, computer vision, networks and Godot games"}, "nav_about": {"ru": "Обо мне", "en": "About"}, "nav_auction": {"ru": "Автозакупка лотов", "en": "Auction bot"}, "nav_keyran": {"ru": "Порт макроса", "en": "Macro port"}, "nav_funpay": {"ru": "Парсер FunPay", "en": "FunPay parser"}, "nav_zombie": {"ru": "Zombie Waves", "en": "Zombie Waves"}, "nav_vpn": {"ru": "Proxy-скринер", "en": "Proxy screener"}, "nav_yolo": {"ru": "YOLO-модель", "en": "YOLO model"}, "nav_tomato": {"ru": "СТЗ для томатов", "en": "Tomato CV"}, "nav_skills": {"ru": "Навыки", "en": "Skills"}, "nav_contacts": {"ru": "Контакты", "en": "Contacts"}, "about_title": {"ru": "Обо мне", "en": "About me"}, "about_lead1": {"ru": "Занимаюсь разработкой на Python около года в статусе самозанятого. Основное направление - инструменты автоматизации на базе компьютерного зрения: боты, которые видят экран, принимают решения и выполняют действия вместо человека. В работе - от разметки данных и обучения моделей до интерфейса, тестов и документации. Отдельно развиваю game dev на Godot и сетевые инструменты: от игрового цикла до проверки прокси и VPN-конфигов.", "en": "I have been developing in Python for about a year as a self-employed developer. My main focus is automation tools powered by computer vision: bots that see the screen, make decisions and act instead of a human. My workflow covers data annotation and model training through to interfaces, tests and documentation. I also develop games in Godot and network tools, from game loops to proxy and VPN screening."}, "about_lead2": {"ru": "Опыт: 1 год коммерческой разработки на себя (самозанятость): TODO: N продуктов, выручка ~X ₽/мес, договоры/СМЗ.", "en": "Experience: 1 year of commercial self-employed development: TODO: N products, revenue ~X RUB/month, contracts/tax receipts."}, "m1": {"ru": "самозанятость, коммерческие проекты", "en": "self-employment, commercial projects"}, "m2": {"ru": "проектов в портфолио", "en": "projects in portfolio"}, "m3": {"ru": "строк кода в основном проекте", "en": "lines of code in the main project"}, "m4": {"ru": "автотестов, все зелёные", "en": "unit tests, all passing"}, "p1": {"ru": "Автозакупка лотов на аукционе", "en": "Auction lot auto-buyer"}, "p2": {"ru": "Порт игрового макроса на Python", "en": "Game macro port in Python"}, "p3": {"ru": "Парсер цен FunPay", "en": "FunPay price parser"}, "p4": {"ru": "Zombie Waves - игра на Godot", "en": "Zombie Waves - Godot game"}, "p5": {"ru": "Скринер прокси и VPN-конфигов", "en": "Proxy and VPN config screener"}, "p6": {"ru": "Обучение YOLO-модели для аукциона", "en": "YOLO model training for the auction"}, "p7": {"ru": "Система технического зрения для распознавания томатов", "en": "Computer vision system for tomato recognition"}, "filter_all": {"ru": "Все", "en": "All"}, "filter_cv": {"ru": "Computer Vision", "en": "Computer Vision"}, "filter_auto": {"ru": "Автоматизация", "en": "Automation"}, "filter_game": {"ru": "Game Dev", "en": "Game Dev"}, "filter_net": {"ru": "Сети", "en": "Networks"}, "cv_subtitle": {"ru": "Computer Vision / ML engineer: YOLO, OCR, edge-деплой", "en": "Computer Vision / ML engineer: YOLO, OCR, edge deployment"}, "skills_title": {"ru": "Навыки", "en": "Skills"}, "skills_dev": {"ru": "Разработка", "en": "Development"}, "skills_cv": {"ru": "Компьютерное зрение", "en": "Computer Vision"}, "skills_game": {"ru": "Game Dev", "en": "Game Dev"}, "skills_auto": {"ru": "Автоматизация", "en": "Automation"}, "skills_data": {"ru": "Данные", "en": "Data"}, "skills_ui": {"ru": "Интерфейсы", "en": "Interfaces"}, "skills_net": {"ru": "Сети и инфраструктура", "en": "Networks and infrastructure"}, "contacts_title": {"ru": "Контакты", "en": "Contacts"}, "contacts_lead": {"ru": "Открыт к проектам по автоматизации, компьютерному зрению, game dev и сетевым инструментам.", "en": "Open to projects in automation, computer vision, game dev and network tools."}, "footer": {"ru": "Кирилл Колесников · портфолио · 2026 · страница не содержит исходного кода проектов", "en": "Kirill Kolesnikov · portfolio · 2026 · this page contains no project source code"}, "links": {"ru": "Ссылки:", "en": "Links:"}};
+    function setLang(lang) {
+      Object.keys(DICT).forEach(function (key) {
+        document.querySelectorAll('[data-i18n="' + key + '"]').forEach(function (el) {
+          el.textContent = DICT[key][lang];
+        });
+      });
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang').forEach(function (b) {
+        b.classList.toggle('active', b.dataset.lang === lang);
+      });
+    }
+    document.querySelectorAll('.lang').forEach(function (b) {
+      b.addEventListener('click', function () { setLang(b.dataset.lang); });
+    });
+  })();
 
   // Фильтр направлений и CV-порядок
   (function () {
