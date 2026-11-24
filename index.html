@@ -256,7 +256,11 @@
   .lang.active { color: var(--accent); border-color: rgba(63,185,80,.5); background: rgba(63,185,80,.12); }
 
   [hidden] { display: none !important; }
-  .filters { display: flex; flex-wrap: wrap; gap: 8px; max-width: 1080px; margin: 0 auto; padding: 36px 24px 0; }
+  .filters {
+    display: flex; flex-wrap: wrap; gap: 8px; max-width: 1080px; margin: 0 auto;
+    padding: 14px 24px; position: sticky; top: 54px; z-index: 9;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+  }
   .filter {
     font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
     color: var(--muted); background: transparent; border: 1px solid var(--border);
@@ -1065,7 +1069,7 @@
         b.classList.toggle('active', b.dataset.filter === filter);
       });
       subtitle.hidden = filter !== 'cv';
-      var ref = anchor.nextSibling;
+      var ref = subtitle.nextSibling;
       var selected;
       if (filter === 'all') selected = original;
       else if (filter === 'cv') selected = cvOrder.map(function (id) {
