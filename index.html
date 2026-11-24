@@ -81,25 +81,10 @@
   }
   nav .wrap {
     display: flex; gap: 30px; padding: 15px 24px; overflow-x: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent) rgba(255,255,255,.06);
+    scrollbar-width: none;
     scroll-snap-type: x proximity;
   }
-  nav .wrap::-webkit-scrollbar { height: 6px; }
-  nav .wrap::-webkit-scrollbar-track {
-    background: rgba(255,255,255,.05);
-    border-radius: 999px;
-    margin: 0 24px 6px;
-  }
-  nav .wrap::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, var(--accent), var(--blue));
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,.12);
-    box-shadow: 0 0 8px rgba(88,166,255,.3);
-  }
-  nav .wrap::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(90deg, var(--blue), var(--accent));
-  }
+  nav .wrap::-webkit-scrollbar { display: none; }
   nav a {
     color: var(--muted); text-decoration: none; font-size: 14px;
     white-space: nowrap; font-weight: 600; transition: color .25s;
@@ -107,13 +92,12 @@
   }
   nav a:hover { color: var(--accent); }
   .nav-progress {
-    height: 4px; margin: 0 24px 8px; border-radius: 999px;
-    background: rgba(255,255,255,.06); overflow: hidden;
+    height: 6px; margin: 0 24px 8px;
   }
   .nav-progress span {
-    display: block; height: 100%; width: 30%; border-radius: 999px;
+    display: block; width: 40px; height: 6px; border-radius: 999px;
     background: linear-gradient(90deg, var(--accent), var(--blue));
-    box-shadow: 0 0 8px rgba(88,166,255,.45);
+    box-shadow: 0 0 10px rgba(88,166,255,.5);
     transition: margin-left .1s linear;
   }
 
@@ -978,10 +962,10 @@
       var ratio = wrap.clientWidth / wrap.scrollWidth;
       if (ratio >= 1) { bar.style.display = 'none'; return; }
       bar.style.display = '';
-      var visible = Math.max(ratio, 0.08);
+      var thumbWidth = 40;
       var left = wrap.scrollLeft / (wrap.scrollWidth - wrap.clientWidth);
-      thumb.style.width = (visible * 100).toFixed(2) + '%';
-      thumb.style.marginLeft = (left * (1 - visible) * 100).toFixed(2) + '%';
+      thumb.style.width = thumbWidth + 'px';
+      thumb.style.marginLeft = (left * (bar.clientWidth - thumbWidth)).toFixed(1) + 'px';
     }
     wrap.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
