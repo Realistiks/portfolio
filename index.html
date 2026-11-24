@@ -104,6 +104,11 @@
     white-space: nowrap; font-weight: 600; transition: color .25s;
   }
   nav a:hover { color: var(--accent); }
+  nav a.active { color: var(--accent); }
+  nav a.active::after {
+    content: ""; display: block; height: 2px; margin-top: 4px;
+    border-radius: 2px; background: var(--accent);
+  }
   .nav-progress {
     height: 6px; margin: 0 24px 8px;
   }
@@ -1015,6 +1020,35 @@
     }
     thumb.addEventListener('pointerup', stopDrag);
     thumb.addEventListener('pointercancel', stopDrag);
+
+    // Колесо мыши листает список по горизонтали
+    wrap.addEventListener('wheel', function (e) {
+      var max = wrap.scrollWidth - wrap.clientWidth;
+      if (max <= 0 || Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+      var next = wrap.scrollLeft + e.deltaY;
+      if (next > 0 && next < max) {
+        e.preventDefault();
+        wrap.scrollLeft = next;
+      }
+    }, { passive: false });
+
+    // Подсветка активного раздела и автопрокрутка меню к нему
+    var links = Array.from(document.querySelectorAll('nav a'));
+    var byId = {};
+    links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+    var sections = Object.keys(byId).map(function (id) { return document.getElementById(id); }).filter(Boolean);
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var link = byId[entry.target.id];
+        links.forEach(function (a) { a.classList.toggle('active', a === link); });
+        if (!link) return;
+        var target = link.offsetLeft - (wrap.clientWidth - link.offsetWidth) / 2;
+        wrap.scrollTo({ left: target, behavior: 'smooth' });
+      });
+    }, { rootMargin: '-70px 0px -65% 0px', threshold: 0 });
+    sections.forEach(function (s) { observer.observe(s); });
+
     update();
   })();
 
