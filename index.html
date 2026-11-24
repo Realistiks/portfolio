@@ -97,13 +97,11 @@
   nav .wrap {
     display: flex; gap: 30px; padding: 15px 24px; overflow-x: auto;
     scrollbar-width: none;
-    scroll-snap-type: x proximity;
   }
   nav .wrap::-webkit-scrollbar { display: none; }
   nav a {
     color: var(--muted); text-decoration: none; font-size: 14px;
     white-space: nowrap; font-weight: 600; transition: color .25s;
-    scroll-snap-align: start;
   }
   nav a:hover { color: var(--accent); }
   .nav-progress {
@@ -111,10 +109,13 @@
   }
   .nav-progress span {
     display: block; width: 40px; height: 6px; border-radius: 999px;
-    background: linear-gradient(90deg, var(--accent), var(--blue));
-    box-shadow: 0 0 10px rgba(88,166,255,.5);
-    transition: margin-left .1s linear;
+    background: var(--accent);
+    box-shadow: 0 0 10px rgba(63,185,80,.55);
+    transition: margin-left .1s linear, background .15s linear;
+    cursor: grab;
+    touch-action: none;
   }
+  .nav-progress span.dragging { cursor: grabbing; }
 
   section { padding: 64px 0; border-bottom: 1px solid var(--border); }
   section[id] { scroll-margin-top: 64px; }
@@ -981,9 +982,39 @@
       var left = wrap.scrollLeft / (wrap.scrollWidth - wrap.clientWidth);
       thumb.style.width = thumbWidth + 'px';
       thumb.style.marginLeft = (left * (bar.clientWidth - thumbWidth)).toFixed(1) + 'px';
+      var r = Math.round(63 + (88 - 63) * left);
+      var g = Math.round(185 + (166 - 185) * left);
+      var b = Math.round(80 + (255 - 80) * left);
+      var color = 'rgb(' + r + ',' + g + ',' + b + ')';
+      thumb.style.background = color;
+      thumb.style.boxShadow = '0 0 10px rgba(' + r + ',' + g + ',' + b + ',.55)';
     }
     wrap.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
+
+    var dragging = false, startX = 0, startScroll = 0, thumbWidth = 40;
+    thumb.addEventListener('pointerdown', function (e) {
+      dragging = true;
+      startX = e.clientX;
+      startScroll = wrap.scrollLeft;
+      thumb.classList.add('dragging');
+      thumb.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    });
+    thumb.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var track = Math.max(bar.clientWidth - thumbWidth, 1);
+      var range = wrap.scrollWidth - wrap.clientWidth;
+      wrap.scrollLeft = startScroll + ((e.clientX - startX) / track) * range;
+    });
+    function stopDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      thumb.classList.remove('dragging');
+      if (thumb.hasPointerCapture(e.pointerId)) thumb.releasePointerCapture(e.pointerId);
+    }
+    thumb.addEventListener('pointerup', stopDrag);
+    thumb.addEventListener('pointercancel', stopDrag);
     update();
   })();
 
