@@ -142,6 +142,14 @@
   .gallery.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .gallery .parser-small { max-width: 600px; }
   .gallery .site-small { max-width: 600px; }
+  .gallery .diploma-small { max-width: 620px; display: block; margin: 0 auto; }
+
+  .award {
+    display: inline-block; margin: 4px 0 16px; padding: 8px 16px;
+    border-radius: 999px; font-size: 13px; font-weight: 700;
+    color: var(--accent); background: rgba(63,185,80,.12);
+    border: 1px solid rgba(63,185,80,.4);
+  }
   .gallery.split {
     grid-template-columns: minmax(230px, 1fr) 2fr;
     align-items: stretch;
@@ -776,11 +784,13 @@
 <section id="tomato">
   <div class="wrap">
     <h2 class="reveal"><span class="num">07</span>Система технического зрения для распознавания томатов</h2>
+    <div class="award reveal d1">Победитель регионального трека «Большие вызовы», 2024/2025</div>
     <p class="lead reveal d1">
       Проект для Всероссийского конкурса научно-технологических проектов «Большие вызовы» 2024/2025 учебного года,
-      тематическое направление «Большие данные и ИИ». Задача: определять спелые плоды томатов по изображению
-      и видеопотоку с недорогой камеры. Сначала я делал собственный каскад Хаара, затем перешёл на YOLOv11
-      и подключил модель к трансляции с ESP32-CAM.
+      тематическое направление «Большие данные, искусственный интеллект, автоматизированные системы и безопасность».
+      Задача: определять спелые плоды томатов по изображению и видеопотоку с недорогой камеры. Сначала я делал
+      собственный каскад Хаара, затем перешёл на YOLOv11 и подключил модель к трансляции с ESP32-CAM.
+      Проект стал победителем регионального трека конкурса.
     </p>
 
     <div class="metrics">
@@ -806,6 +816,7 @@
           <span class="chip">Python</span><span class="chip">OpenCV</span><span class="chip">Каскады Хаара</span>
           <span class="chip">Ultralytics YOLOv11</span><span class="chip">ESP32-CAM</span><span class="chip">Arduino IDE</span>
           <span class="chip">Видеопоток</span><span class="chip">Аннотация данных</span><span class="chip">GPU</span>
+          <span class="chip">Победитель «Больших вызовов»</span>
         </div>
       </div>
       <div class="reveal from-right">
@@ -828,6 +839,10 @@
       <figure class="reveal d2">
         <img src="img/tomato/haar-detection.png" alt="Результат работы каскада Хаара на изображении томата" loading="lazy" width="500" height="450">
         <figcaption>Для сравнения: результат работы собственного каскада Хаара до перехода на YOLO</figcaption>
+      </figure>
+      <figure class="reveal d1">
+        <img class="diploma-small" src="img/tomato/diploma.jpg" alt="Диплом победителя регионального трека конкурса «Большие вызовы»" loading="lazy" width="900" height="1284">
+        <figcaption>Диплом победителя регионального трека Всероссийского конкурса «Большие вызовы», 2024/2025</figcaption>
       </figure>
     </div>
 
