@@ -246,6 +246,17 @@
     font-size: 15px;
   }
   .result b { color: var(--accent); }
+  [hidden] { display: none !important; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; max-width: 1080px; margin: 0 auto; padding: 36px 24px 0; }
+  .filter {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    color: var(--muted); background: transparent; border: 1px solid var(--border);
+    border-radius: 999px; padding: 7px 16px; transition: color .2s, border-color .2s, background .2s;
+  }
+  .filter:hover { color: var(--accent); border-color: var(--accent); }
+  .filter.active { color: var(--accent); border-color: rgba(63,185,80,.5); background: rgba(63,185,80,.12); }
+  #cv-subtitle { max-width: 1080px; margin: 0 auto; padding: 16px 24px 0; color: var(--accent); font-weight: 600; }
+
   .links { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 18px; }
   .links__label { font-size: 13px; color: var(--muted); margin-right: 4px; }
   button.chip { cursor: pointer; font: inherit; }
@@ -370,7 +381,18 @@
   </div>
 </section>
 
-<section id="auction">
+<div id="projects-anchor" aria-hidden="true"></div>
+
+<div class="filters reveal" role="tablist" aria-label="Направления проектов">
+  <button class="filter active" type="button" data-filter="all" role="tab">Все</button>
+  <button class="filter" type="button" data-filter="cv" role="tab">Computer Vision</button>
+  <button class="filter" type="button" data-filter="automation" role="tab">Автоматизация</button>
+  <button class="filter" type="button" data-filter="gamedev" role="tab">Game Dev</button>
+  <button class="filter" type="button" data-filter="networks" role="tab">Сети</button>
+</div>
+<p id="cv-subtitle" hidden>Computer Vision / ML engineer: YOLO, OCR, edge-деплой</p>
+
+<section id="auction" class="project" data-cat="cv automation">
   <div class="wrap">
     <h2 class="reveal"><span class="num">01</span>Автозакупка лотов на аукционе</h2>
     <p class="lead reveal d1">
@@ -460,7 +482,7 @@
   </div>
 </section>
 
-<section id="keyran">
+<section id="keyran" class="project" data-cat="automation">
   <div class="wrap">
     <h2 class="reveal"><span class="num">02</span>Порт игрового макроса на Python</h2>
     <p class="lead reveal d1">
@@ -530,7 +552,7 @@
   </div>
 </section>
 
-<section id="funpay">
+<section id="funpay" class="project" data-cat="automation">
   <div class="wrap">
     <h2 class="reveal"><span class="num">03</span>Парсер цен FunPay</h2>
     <p class="lead reveal d1">
@@ -594,7 +616,7 @@
   </div>
 </section>
 
-<section id="zombie">
+<section id="zombie" class="project" data-cat="gamedev">
   <div class="wrap">
     <h2 class="reveal"><span class="num">04</span>Zombie Waves - игра на Godot</h2>
     <p class="lead reveal d1">
@@ -682,7 +704,7 @@
   </div>
 </section>
 
-<section id="vpn">
+<section id="vpn" class="project" data-cat="networks">
   <div class="wrap">
     <h2 class="reveal"><span class="num">05</span>Скринер прокси и VPN-конфигов</h2>
     <p class="lead reveal d1">
@@ -759,7 +781,7 @@
   </div>
 </section>
 
-<section id="yolo">
+<section id="yolo" class="project" data-cat="cv">
   <div class="wrap">
     <h2 class="reveal"><span class="num">06</span>Обучение YOLO-модели для аукциона</h2>
     <p class="lead reveal d1">
@@ -831,7 +853,7 @@
 </section>
 
 
-<section id="tomato">
+<section id="tomato" class="project" data-cat="cv">
   <div class="wrap">
     <h2 class="reveal"><span class="num">07</span>Система технического зрения для распознавания томатов</h2>
     <div class="award reveal d1">Победитель регионального трека «Большие вызовы», 2024/2025</div>
@@ -1017,6 +1039,35 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') document.getElementById('lb').classList.remove('open');
   });
+
+  // Фильтр направлений и CV-порядок
+  (function () {
+    var anchor = document.getElementById('projects-anchor');
+    var subtitle = document.getElementById('cv-subtitle');
+    var projects = Array.from(document.querySelectorAll('section.project'));
+    if (!anchor || !projects.length) return;
+    var original = projects.slice();
+    var cvOrder = ['tomato', 'yolo', 'auction'];
+
+    function apply(filter) {
+      document.querySelectorAll('.filter').forEach(function (b) {
+        b.classList.toggle('active', b.dataset.filter === filter);
+      });
+      subtitle.hidden = filter !== 'cv';
+      var ref = anchor.nextSibling;
+      var selected;
+      if (filter === 'all') selected = original;
+      else if (filter === 'cv') selected = cvOrder.map(function (id) {
+        return projects.find(function (s) { return s.id === id; });
+      }).filter(Boolean);
+      else selected = projects.filter(function (s) { return s.dataset.cat.split(' ').indexOf(filter) >= 0; });
+      projects.forEach(function (s) { s.hidden = selected.indexOf(s) < 0; });
+      selected.forEach(function (s) { anchor.parentNode.insertBefore(s, ref); });
+    }
+    document.querySelectorAll('.filter').forEach(function (b) {
+      b.addEventListener('click', function () { apply(b.dataset.filter); });
+    });
+  })();
 
   // Анимации при скролле
   var io = new IntersectionObserver(function (entries) {
